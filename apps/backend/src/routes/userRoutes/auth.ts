@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { signup } from "../../controllers/userController/auth";
-const router = Router()
+import { usersignup } from "../../controllers/userController/auth"; // Check if this path is correct
+const router = Router();
 
-router.post('/signup',signup)
+router.post('/signup', usersignup);
 
-export default router
+export default router;
