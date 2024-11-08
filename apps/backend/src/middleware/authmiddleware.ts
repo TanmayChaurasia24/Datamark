@@ -7,7 +7,7 @@ interface AuthenticatedRequest extends Request {
 }
 
 export const authmiddleware = async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
-  const authHeader = req.headers["authorization"] || "";
+  const authHeader = req.headers["authorization"] ?? "";
   
   try {
     

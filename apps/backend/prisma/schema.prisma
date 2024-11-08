@@ -31,7 +31,7 @@ model workers {
 
 model Task{
   id Int @id @default(autoincrement())
-  title String @default("Select the best option you like")
+  title String? @default("Select the best option you like")
   options Option[]
   signature String
   amount String

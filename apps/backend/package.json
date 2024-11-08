@@ -18,7 +18,9 @@
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.7",
-    "prisma": "^5.21.1"
+    "prisma": "^5.21.1",
+    "zod": "^3.23.8",
+    "@datamark-zod/types": "*"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
