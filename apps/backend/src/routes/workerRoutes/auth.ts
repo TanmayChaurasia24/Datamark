@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { signup } from "../../controllers/workerController/auth";
+import { workermiddleware } from "../../middleware/authmiddleware";
+import { usersignup } from "../../controllers/workerController/auth";
 const router = Router()
 
-router.post('/signup',signup)
+router.post('/signup',workermiddleware,usersignup)
 
 export default router
