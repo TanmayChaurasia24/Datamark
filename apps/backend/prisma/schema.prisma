@@ -34,6 +34,7 @@ model Task{
   options Option[]
   signature String
   amount String
+  done Boolean
   user_id Int
   user User @relation(fields: [user_id], references: [id])
   submissions Submissions[]

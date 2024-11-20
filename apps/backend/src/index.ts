@@ -3,7 +3,7 @@ import cors from "cors"
 import userAuthRoutes from "./routes/userRoutes/auth";
 import workerAuthRoutes from "./routes/workerRoutes/auth";
 
-const PORT = 8080
+const PORT = 8000
 const app = express();
 
 app.use(cors())
