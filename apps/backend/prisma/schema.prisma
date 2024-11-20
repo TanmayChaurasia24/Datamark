@@ -33,7 +33,7 @@ model Task{
   title String? @default("Select the best option you like")
   options Option[]
   signature String
-  amount String
+  amount Int
   done Boolean
   user_id Int
   user User @relation(fields: [user_id], references: [id])
@@ -58,6 +58,7 @@ model Submissions {
   task_id Int
   task Task @relation(fields: [task_id], references: [id])
   amount String
+  @@unique([worker_id,task_id])
 }
 
 
