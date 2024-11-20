@@ -1,8 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsc -b && nodemon dist/index.js"
@@ -12,19 +10,19 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^5.21.1",
+    "@datamark-zod/types": "*",
+    "@prisma/client": "^5.22.0",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/nodemon": "^1.19.6",
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.7",
-    "prisma": "^5.21.1",
-    "zod": "^3.23.8",
-    "@datamark-zod/types": "*"
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0"
+    "@types/express": "^5.0.0",
+    "prisma": "^5.22.0"
   }
 }

@@ -48,3 +48,50 @@ export const usersignup = async (req: Request, res: Response): Promise<any> => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const nextTask = async (req: Request, res: Response): Promise<any> => {
+  try {
+    //@ts-ignore
+    const userId = req.userId;
+
+    const task = await prismaClient.task.findFirst({
+      where: {
+        done: false,
+        submissions: {
+          none: {
+            worker_id: userId
+          }
+        }
+      },
+      select: {
+        title: true,
+        options: true
+      }
+    })
+
+    if(!task) {
+      res.status(411).json({
+        message: "no more task left for you to review"
+      })
+    }
+
+    return res.status(201).json({
+      task
+    })
+  } catch (error) {
+    return res.status(500).json({
+      error: "internal server error"
+    })
+  }
+}
+
+export const nextsubmission = async (req: Request, res: Response): Promise<any> => {
+  try {
+    
+  } catch (error) {
+    return res.status(500).json({
+      error: "internal server error",
+      message: "while next submission"
+    })
+  }
+}

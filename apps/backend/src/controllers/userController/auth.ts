@@ -1,7 +1,15 @@
 import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import { createTaskInput } from "@datamark-zod/types";
+import { z } from "zod"
+
+const createTaskInput = z.object({
+    options: z.array(z.object({
+        imageUrl: z.string()
+    })),
+    title: z.string().optional(),
+    signature: z.string()
+})
 
 const prismaClient = new PrismaClient();
 
@@ -75,6 +83,7 @@ export const task = async (req: Request, res: Response): Promise<any> => {
           amount: "50",                   // Hardcoded amount for demonstration
           signature: isCorrectInput.data?.signature!, // User-provided signature
           user_id: userId,                // Associate task with logged-in user
+          done: false
         },
       });
 
