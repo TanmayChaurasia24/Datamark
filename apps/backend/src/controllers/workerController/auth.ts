@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
-import z, { ParseStatus } from "zod";
+import z, { any, ParseStatus } from "zod";
 
 const prismaClient = new PrismaClient();
 
@@ -142,7 +142,7 @@ export const nextsubmission = async (
     }
     const amount = (Number(task.amount) / 100).toString();
 
-    const submission = await prismaClient.$transaction(async tx => {
+    const submission = await prismaClient.$transaction(async () => {
       const submission = await prismaClient.submissions.create({
         data: {
           option_id: Number(parseddata.data.selection),

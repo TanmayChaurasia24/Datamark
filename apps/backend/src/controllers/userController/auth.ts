@@ -75,7 +75,7 @@ export const task = async (req: Request, res: Response): Promise<any> => {
     }
 
     // Create a task and its related options within a database transaction
-    let response = await prismaClient.$transaction(async (tx) => {
+    let response = await prismaClient.$transaction(async (tx: any) => {
       // Create the task with a title, amount, signature, and user_id
       const taskreponse = await tx.task.create({
         data: {
@@ -153,7 +153,7 @@ export const taskk = async (req: Request, res: Response): Promise<any> => {
     }> = {};
 
     // Initialize the count for each option to zero
-    taskdetail.options.forEach(option => {
+    taskdetail.options.forEach((option: { id: string | number; image_url: any; }) => {
       result[option.id] = {
         count: 0,
         option: {
@@ -163,7 +163,7 @@ export const taskk = async (req: Request, res: Response): Promise<any> => {
     });
 
     // Count the number of selections for each option
-    response.forEach(r => {
+    response.forEach((r: { option_id: string | number; }) => {
       result[r.option_id].count++;
     });
 
