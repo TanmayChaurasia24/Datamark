@@ -3,14 +3,6 @@ import { PrismaClient } from "@prisma/client";
 import { Request, Response } from "express";
 import { z } from "zod"
 
-const createTaskInput = z.object({
-    options: z.array(z.object({
-        imageUrl: z.string()
-    })),
-    title: z.string().optional(),
-    signature: z.string()
-})
-
 const prismaClient = new PrismaClient();
 
 // User Signup - Registers a user with a hardcoded wallet address
@@ -56,6 +48,14 @@ export const usersignup = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
+
+const createTaskInput = z.object({
+  options: z.array(z.object({
+      imageUrl: z.string()
+  })),
+  title: z.string().optional(),
+  signature: z.string()
+})
 // Creating a Task - Allows a user to create a task with options
 export const task = async (req: Request, res: Response): Promise<any> => {
   // @ts-ignore 
@@ -80,7 +80,7 @@ export const task = async (req: Request, res: Response): Promise<any> => {
       const taskreponse = await tx.task.create({
         data: {
           title: isCorrectInput.data?.title ?? "choose one from the give options", // Default title if not provided
-          amount: "50",                   // Hardcoded amount for demonstration
+          amount: "50",                 
           signature: isCorrectInput.data?.signature!, // User-provided signature
           user_id: userId,                // Associate task with logged-in user
           done: false

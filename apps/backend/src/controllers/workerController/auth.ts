@@ -142,8 +142,8 @@ export const nextsubmission = async (
     }
     const amount = (Number(task.amount) / 100).toString();
 
-    const submission = await prismaClient.$transaction(async () => {
-      const submission = await prismaClient.submissions.create({
+    const submission = await prismaClient.$transaction(async (tx: any) => {
+      const submission = await tx.submissions.create({
         data: {
           option_id: Number(parseddata.data.selection),
           worker_id: userId,
@@ -153,13 +153,13 @@ export const nextsubmission = async (
       });
       const totalDec = process.env.TOTAL_DEC ? Number(process.env.TOTAL_DEC) : 0;
 
-      await prismaClient.workers.update({
+      await tx.workers.update({
         where: {
           id: userId,
         },
         data: {
           pending_amount: {
-            increment: Number(amount) * totalDec
+            increment: Number(amount)
           }
         }
       })
@@ -203,3 +203,45 @@ export const nextsubmission = async (
     });
   }
 };
+
+
+export const balance = async (req: Request , res: Response): Promise<any> => {
+  try {
+    // @ts-ignore
+    const userId = req.userId;
+
+    const worker = await prismaClient.workers.findFirst({
+      where: {
+        id: Number(userId)
+      }
+    })
+
+    return res.json({
+      pending_amount: worker?.pending_amount,
+      locked_amount: worker?.locked_amount
+    })
+  } catch (error) {
+    return res.status(500).json({
+      error: "internal server error",
+      message: "while getting balance",
+    });
+  }
+}
+
+export const payout = async(req: Request, res: Response): Promise<any> => {
+  try {
+    // @ts-ignore
+    const userId: string = req.userId;
+
+    const amount = await prismaClient.workers.findFirst({
+      where: {
+        id: Number(userId)
+      }
+    })
+  } catch (error) {
+    return res.status(500).json({
+      error: "internal server error",
+      message: "while payout",
+    })
+  }
+}
